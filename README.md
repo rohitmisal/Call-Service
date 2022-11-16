@@ -7,3 +7,21 @@ Call Details Service API
     
   Swagger Ui 
     swagger url =http://localhost:2001/swagger-ui/index.html
+
+Redis Cache added:
+
+1) //to add cache while addig call details and removig previous cache fro the given id
+  @Caching(evict = { @CacheEvict(value = "callDetails", allEntries = true), }, put = {
+			@CachePut(value = "callDetails", key = "#callDetails.getFromNumber()") })
+      @Override
+      public void addCallDetails(CallDetails callDetails)
+      
+     
+2) //to get cache for callDetails
+  @Cacheable(value = "callDetails", key = "#fromNumber", unless = "#result==null")
+	@Override
+	public List<CallDetails> getCallDetails(Long fromNumber)
+ 
+ 
+  
+  
