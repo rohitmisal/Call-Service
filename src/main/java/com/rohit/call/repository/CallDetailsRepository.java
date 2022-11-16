@@ -9,4 +9,6 @@ import com.rohit.call.Entity.CallDetailsEntity;
 public interface CallDetailsRepository extends JpaRepository<CallDetailsEntity, Integer> {
 
 	List<CallDetailsEntity> findByFromNumber(Long fromNumber);
+
+	boolean existsByfromNumber(Long fromNumber);
 }
