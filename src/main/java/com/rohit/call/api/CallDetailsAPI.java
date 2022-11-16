@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rohit.call.model.CallDetails;
 import com.rohit.call.service.CallDetailsService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+
 @RestController
 @RequestMapping("/api")
 public class CallDetailsAPI {
@@ -23,7 +26,8 @@ public class CallDetailsAPI {
 	CallDetailsService callService;
 	
 	@GetMapping("/calldetails/{fromNumber}")
-	public ResponseEntity<?> getMobileDetails(@PathVariable Long fromNumber){
+	@ApiOperation(value = "Return the call Details of a number")
+	public ResponseEntity<?> getCallDetailsforNumber(@PathVariable Long fromNumber){
 		List<CallDetails> lst= callService.getCallDetails(fromNumber);
 		if(!lst.isEmpty()) {
 			
@@ -38,6 +42,7 @@ public class CallDetailsAPI {
 	}
 	
 	@PostMapping("/calldetails/add")
+	@ApiResponse(code = 200,message = "Call Details added Successfully")
 	public ResponseEntity<String>addCallDetails(@RequestBody CallDetails callDetails){
 		callService.addCallDetails(callDetails);
 		return new ResponseEntity<String>("CallDetails Added succesfully",HttpStatus.CREATED);
